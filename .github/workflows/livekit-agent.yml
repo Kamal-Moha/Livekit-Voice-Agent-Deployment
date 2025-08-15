@@ -62,11 +62,11 @@ jobs:
                 unzip -o ~/livekit-agent.zip -d ~/livekit-agent
                 echo "Building Docker image..."
                 cd ~/livekit-agent 
-                docker build -t livekit-agent .
+                sudo docker build -t livekit-agent .
                 echo "Restarting container..."
                 docker stop livekit-agent || true
-                docker rm livekit-agent || true
-                docker run \
+                sudo docker rm livekit-agent || true
+                sudo docker run \
                   --memory="12gb" \
                   --cpus="14.0" \
                   -d \
@@ -74,5 +74,5 @@ jobs:
                   --env-file ~/.env \
                   --name livekit-agent livekit-agent
                 echo "Cleaning up unused images..."
-                docker image prune -f || true
+                sudo docker image prune -f || true
               '
