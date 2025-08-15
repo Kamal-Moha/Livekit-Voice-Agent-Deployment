@@ -9,7 +9,7 @@ permissions:
   id-token: write # Required for Workload Identity Federation
 
 env:
-  GCP_VM_NAME: new-myride-wallet-voice
+  GCP_VM_NAME: myride-wallet-voice
   GCP_ZONE: us-east1-d 
 
 jobs:
