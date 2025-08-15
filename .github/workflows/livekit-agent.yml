@@ -10,7 +10,7 @@ permissions:
 
 env:
   GCP_VM_NAME: new-myride-wallet-voice
-  GCP_ZONE: us-east1-d # Added zone as an env variable for consistency
+  GCP_ZONE: us-east1-d 
 
 jobs:
   deploy:
@@ -31,7 +31,6 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           
-      # Add this step to disable interactive prompts globally for gcloud
       - name: Disable gcloud prompts
         run: gcloud config set core/disable_prompts true
 
@@ -41,15 +40,15 @@ jobs:
 
       - name: Upload ZIP to VM ⬆️☁️🖥️
         run: |
-          # CHANGE: Added --project flag to ensure the correct project is used.
-          gcloud compute scp livekit-agent.zip bhadala_kamalmohapy@${{ env.GCP_VM_NAME }}:~ \
+          # CHANGE: Using 'gcloud beta' to support WIF for SSH/SCP.
+          gcloud beta compute scp livekit-agent.zip bhadala_kamalmohapy@${{ env.GCP_VM_NAME }}:~ \
             --project=${{ secrets.GCP_PROJECT_ID }} \
             --zone=${{ env.GCP_ZONE }}
 
       - name: Prepare and deploy on VM 🚀🖥️
         run: |
-          # CHANGE: Added --project flag here as well.
-          gcloud compute ssh bhadala_kamalmohapy@${{ env.GCP_VM_NAME }} \
+          # CHANGE: Using 'gcloud beta' here as well.
+          gcloud beta compute ssh bhadala_kamalmohapy@${{ env.GCP_VM_NAME }} \
             --project=${{ secrets.GCP_PROJECT_ID }} \
             --zone=${{ env.GCP_ZONE }} \
             --command='
@@ -62,7 +61,6 @@ jobs:
               unzip -o ~/livekit-agent.zip -d ~/livekit-agent
 
               echo "Building Docker image..."
-              # FIX: The directory was wrong. You unzip into livekit-agent, so you must cd into it.
               cd ~/livekit-agent 
               docker build -t livekit-agent .
 
@@ -70,12 +68,12 @@ jobs:
               docker stop livekit-agent || true
               docker rm livekit-agent || true
               docker run \
-              --memory="12gb" \
-              --cpus="14.0" \
-              -d \
-              --restart=always \
-              --env-file /home/bhadala_kamalmohapy/.env \
-              --name livekit-agent livekit-agent
+                --memory="12gb" \
+                --cpus="14.0" \
+                -d \
+                --restart=always \
+                --env-file /home/bhadala_kamalmohapy/.env \
+                --name livekit-agent livekit-agent
 
               echo "Cleaning up unused images..."
               docker image prune -f || true
