@@ -48,33 +48,31 @@ jobs:
       - name: Prepare and deploy on VM 🚀🖥️
         run: |
           # CHANGE: Using 'gcloud beta' here as well.
-          gcloud beta compute ssh bhadala_kamalmohapy@${{ env.GCP_VM_NAME }} \
-            --project=${{ secrets.GCP_PROJECT_ID }} \
-            --zone=${{ env.GCP_ZONE }} \
-            --command='
-              set -e
-              echo "Cleaning previous deployment..."
-              rm -rf ~/livekit-agent
-              mkdir ~/livekit-agent
-
-              echo "Unzipping..."
-              unzip -o ~/livekit-agent.zip -d ~/livekit-agent
-
-              echo "Building Docker image..."
-              cd ~/livekit-agent 
-              docker build -t livekit-agent .
-
-              echo "Restarting container..."
-              docker stop livekit-agent || true
-              docker rm livekit-agent || true
-              docker run \
-                --memory="12gb" \
-                --cpus="14.0" \
-                -d \
-                --restart=always \
-                --env-file /home/bhadala_kamalmohapy/.env \
-                --name livekit-agent livekit-agent
-
-              echo "Cleaning up unused images..."
-              docker image prune -f || true
-            '
+          gcloud beta compute ssh ${OS_LOGIN_USER}@${{ env.GCP_VM_NAME }} \
+              --project=${{ secrets.GCP_PROJECT_ID }} \
+              --zone=${{ env.GCP_ZONE }} \
+              --command='
+                set -e
+                echo "Ensuring unzip is installed..."
+                sudo apt-get update && sudo apt-get install -y unzip
+                echo "Cleaning previous deployment..."
+                rm -rf ~/livekit-agent
+                mkdir ~/livekit-agent
+                echo "Unzipping..."
+                unzip -o ~/livekit-agent.zip -d ~/livekit-agent
+                echo "Building Docker image..."
+                cd ~/livekit-agent 
+                docker build -t livekit-agent .
+                echo "Restarting container..."
+                docker stop livekit-agent || true
+                docker rm livekit-agent || true
+                docker run \
+                  --memory="12gb" \
+                  --cpus="14.0" \
+                  -d \
+                  --restart=always \
+                  --env-file ~/.env \
+                  --name livekit-agent livekit-agent
+                echo "Cleaning up unused images..."
+                docker image prune -f || true
+              '
