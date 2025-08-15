@@ -34,7 +34,7 @@ jobs:
 
       - name: Upload ZIP to VM ⬆️☁️🖥️
         run: |
-          gcloud compute scp livekit-agent.zip bhadala_kamalmohapy@${GCP_VM_NAME}:~ --zone=us-central1-f
+          gcloud compute scp livekit-agent.zip bhadala_kamalmohapy@${GCP_VM_NAME}:~ --zone=us-east1-d
 
       - name: Prepare and deploy on VM 🚀🖥️ 🤖💅🏽
         run: |
