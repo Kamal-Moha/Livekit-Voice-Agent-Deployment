@@ -71,7 +71,7 @@ jobs:
                   --cpus="14.0" \
                   -d \
                   --restart=always \
-                  --env-file ~/.env \
+                  --env-file /home/bhadala_kamalmohapy/.env \
                   --name livekit-agent livekit-agent
                 echo "Cleaning up unused images..."
                 sudo docker image prune -f || true
