@@ -41,14 +41,14 @@ jobs:
       - name: Upload ZIP to VM ⬆️☁️🖥️
         run: |
           # CHANGE: Using 'gcloud beta' to support WIF for SSH/SCP.
-          gcloud beta compute scp livekit-agent.zip bhadala_kamalmohapy@${{ env.GCP_VM_NAME }}:~ \
+          gcloud compute scp livekit-agent.zip bhadala_kamalmohapy@${{ env.GCP_VM_NAME }}:~ \
             --project=${{ secrets.GCP_PROJECT_ID }} \
             --zone=${{ env.GCP_ZONE }}
 
       - name: Prepare and deploy on VM 🚀🖥️
         run: |
           # CHANGE: Using 'gcloud beta' here as well.
-          gcloud beta compute ssh ${OS_LOGIN_USER}@${{ env.GCP_VM_NAME }} \
+          gcloud compute ssh ${OS_LOGIN_USER}@${{ env.GCP_VM_NAME }} \
               --project=${{ secrets.GCP_PROJECT_ID }} \
               --zone=${{ env.GCP_ZONE }} \
               --command='
