@@ -64,7 +64,7 @@ jobs:
                 cd ~/livekit-agent 
                 sudo docker build -t livekit-agent .
                 echo "Restarting container..."
-                docker stop livekit-agent || true
+                sudo docker stop livekit-agent || true
                 sudo docker rm livekit-agent || true
                 sudo docker run \
                   --memory="12gb" \
