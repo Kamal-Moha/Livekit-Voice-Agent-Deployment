@@ -65,8 +65,9 @@ jobs:
                 echo "Fetching secrets from Secrets Manager..."
                 LIVEKIT_API_KEY=$(gcloud secrets versions access 1 --secret="LIVEKIT_API_KEY")
                 LIVEKIT_API_SECRET=$(gcloud secrets versions access 1 --secret="LIVEKIT_API_SECRET")
-                LIVEKIT_API_URL=$(gcloud secrets versions access 1 --secret="LIVEKIT_URL")
+                LIVEKIT_URL=$(gcloud secrets versions access 1 --secret="LIVEKIT_URL")
                 GOOGLE_API_KEY=$(gcloud secrets versions access 1 --secret="GOOGLE_API_KEY")
+                echo "LIVEKIT_URL: $LIVEKIT_URL"
                 
                 echo "Building Docker image..."
                 cd ~/livekit-agent 
