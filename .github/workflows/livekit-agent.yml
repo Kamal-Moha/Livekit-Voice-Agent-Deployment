@@ -80,10 +80,9 @@ jobs:
                   -d \
                   --restart=always \
                   -e LIVEKIT_API_KEY="$LIVEKIT_API_KEY" \
-                  -e LIVEKIT_API_SECRET="$LIVEKT_API_SECRET" \
+                  -e LIVEKIT_API_SECRET="$LIVEKIT_API_SECRET" \
                   -e LIVEKIT_URL="$LIVEKIT_URL" \
                   -e GOOGLE_API_KEY="$GOOGLE_API_KEY" \
-                  
                   --name livekit-agent livekit-agent
                 echo "Cleaning up unused images..."
                 sudo docker image prune -f || true
