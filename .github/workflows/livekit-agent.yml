@@ -60,11 +60,6 @@ jobs:
                 mkdir ~/livekit-agent
                 echo "Unzipping..."
                 unzip -o ~/livekit-agent.zip -d ~/livekit-agent
-
-                echo "Copying .env file into project directory..."
-                # ⬇️ ACTION: Copy the .env file from its secure location ⬇️
-                sudo cp /home/bhadala_kamalmohapy/.env .
-                
                 echo "Building Docker image..."
                 cd ~/livekit-agent 
                 sudo docker build -t livekit-agent .
