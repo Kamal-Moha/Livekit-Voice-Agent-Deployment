@@ -76,7 +76,7 @@ jobs:
                 sudo docker rm livekit-agent || true
                 sudo docker run \
                   --memory="12gb" \
-                  --cpus="14.0" \
+                  --cpus="2.0" \
                   -d \
                   --restart=always \
                   -e LIVEKIT_API_KEY="$LIVEKIT_API_KEY" \
