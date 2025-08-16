@@ -67,7 +67,6 @@ jobs:
                 LIVEKIT_API_SECRET=$(gcloud secrets versions access 1 --secret="LIVEKIT_API_SECRET")
                 LIVEKIT_URL=$(gcloud secrets versions access 1 --secret="LIVEKIT_URL")
                 GOOGLE_API_KEY=$(gcloud secrets versions access 1 --secret="GOOGLE_API_KEY")
-                echo "LIVEKIT_URL: $LIVEKIT_URL"
                 
                 echo "Building Docker image..."
                 cd ~/livekit-agent 
@@ -77,7 +76,7 @@ jobs:
                 sudo docker rm livekit-agent || true
                 sudo docker run \
                   --memory="12gb" \
-                  --cpus="2.0" \
+                  --cpus="14.0" \
                   -d \
                   --restart=always \
                   -e LIVEKIT_API_KEY="$LIVEKIT_API_KEY" \
