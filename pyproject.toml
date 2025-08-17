@@ -8,4 +8,5 @@ dependencies = [
     "dotenv>=0.9.9",
     "livekit-agents[google]~=1.0",
     "livekit-plugins-noise-cancellation~=0.2",
+    "pyyaml>=6.0.2",
 ]
