@@ -63,9 +63,9 @@ jobs:
 
                 # ⬇️ Fetch secrets from Google Secrets Manager ⬇️
                 echo "Fetching secrets from Secrets Manager..."
-                LIVEKIT_API_KEY=$(gcloud secrets versions access 1 --secret="LIVEKIT_API_KEY")
-                LIVEKIT_API_SECRET=$(gcloud secrets versions access 1 --secret="LIVEKIT_API_SECRET")
-                LIVEKIT_URL=$(gcloud secrets versions access 1 --secret="LIVEKIT_URL")
+                LIVEKIT_API_KEY=$(gcloud secrets versions access 2 --secret="LIVEKIT_API_KEY")
+                LIVEKIT_API_SECRET=$(gcloud secrets versions access 2 --secret="LIVEKIT_API_SECRET")
+                LIVEKIT_URL=$(gcloud secrets versions access 2 --secret="LIVEKIT_URL")
                 GOOGLE_API_KEY=$(gcloud secrets versions access 1 --secret="GOOGLE_API_KEY")
                 MYRIDE_WALLET_API=$(gcloud secrets versions access 1 --secret="MYRIDE_WALLET_API")
                 
